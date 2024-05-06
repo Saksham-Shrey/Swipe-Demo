@@ -1,7 +1,7 @@
 # Swipe-Demo
 
 ![Swift](https://img.shields.io/badge/Swift-5.0-orange.svg)
-![Xcode](https://img.shields.io/badge/Xcode-12.0-blue.svg)
+![Xcode](https://img.shields.io/badge/Xcode-15.0-blue.svg)
 ![Platform](https://img.shields.io/badge/Platform-iOS-lightgrey.svg)
 
 
