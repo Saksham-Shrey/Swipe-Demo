@@ -16,18 +16,17 @@ struct EachProductView: View {
     var body: some View {
         VStack {
             HStack {
-                AsyncImage(url: URL(string: (imageUrl != "" ? imageUrl : nil) ??  "https://permacultureprinciples.com/wp-content/uploads/2013/01/Pc-Icons-Principle-9.gif"),
-                                content: { image in
-                                    image.resizable()
-                                         .aspectRatio(contentMode: .fit)
-                                         .frame(maxWidth: 160, maxHeight: 160)
-                                         .clipShape(RoundedRectangle(cornerRadius: 25.0))
-                                },
-                                placeholder: {
-                                    ProgressView()
-                                }
-                            )
-                
+                    AsyncImage(url: URL(string: (imageUrl != "" ? imageUrl : nil) ??  "https://permacultureprinciples.com/wp-content/uploads/2013/01/Pc-Icons-Principle-9.gif"),
+                               content: { image in
+                        image.resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(maxWidth: 160, maxHeight: 160)
+                            .clipShape(RoundedRectangle(cornerRadius: 25.0))
+                    },
+                               placeholder: {
+                        ProgressView()
+                    }
+                    )
                 Spacer()
                 
                 VStack() {

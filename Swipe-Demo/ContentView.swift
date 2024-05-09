@@ -42,11 +42,15 @@ struct ContentView: View {
                 ProductsView(products: productsList)
             }
             .onAppear(perform: {
-                productsAPI.getData()
+                Task {
+                    productsAPI.getData()
+                }
             })
             .onChange(of: productsAPI.products, { oldValue, newValue in
-                self.productsList = productsAPI.products!
-                print(productsList)
+                Task {
+                    self.productsList = productsAPI.products!
+                    print(productsList)
+                }
             })
             .padding()
             .tabItem {
@@ -90,16 +94,18 @@ struct ContentView: View {
                     )
                 
                 Button("Submit") {
-                    newProduct = Product(image: imageURL, price: price, productName: productName, productType: productType, tax: tax)
-                    
-                    submitProductData()
-                    
-                    // Clear text fields after submit
-                    imageURL = ""
-                    price = nil // Assuming price is a Double
-                    productName = ""
-                    tax = nil // Assuming tax is a Double
-                    
+                    Task {
+                        newProduct = Product(image: imageURL, price: price, productName: productName, productType: productType, tax: tax)
+                        
+                        submitProductData()
+                        
+                        // Clear text fields after submit
+                        imageURL = ""
+                        price = nil // Assuming price is a Double
+                        productName = ""
+                        tax = nil // Assuming tax is a Double
+                        
+                    }
                 }
                 .font(.custom("MarkerFelt-Thin", size: 20))
                 .padding()
@@ -161,10 +167,11 @@ struct ContentView: View {
             return // No search term provided
         }
         
-        // Filter products based on search term
-        searchResult = productsList.first(where: { $0.productName!.lowercased().contains(searchTerm.lowercased()) })!
+        Task {
+            searchResult = productsList.first(where: { $0.productName!.lowercased().contains(searchTerm.lowercased()) })!
+            isSearchActive = true
+        }
         
-        isSearchActive = true
     }
     
     
@@ -179,7 +186,7 @@ struct ContentView: View {
             return
         }
         
-        DispatchQueue.main.async {
+        Task {
             AF.upload(multipartFormData: { multipartFormData in
                 multipartFormData.append(Data(productName.utf8), withName: "product_name")
                 multipartFormData.append(Data(productType.utf8), withName: "product_type")
@@ -225,7 +232,7 @@ struct ContentView: View {
         }
         
         func updateProducts(productsModel: [Product]) {
-            self.products = productsModel
+                self.products = productsModel
         }
         
     }

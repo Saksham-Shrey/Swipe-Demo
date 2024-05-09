@@ -17,7 +17,7 @@ struct ProductsController {
     var delegate: ProductsControllerDelegate?
     
      func fetchProducts() {
-         DispatchQueue.main.async {
+         Task {
              AF.request("https://app.getswipe.in/api/public/get#").responseDecodable(of: [Product].self) { response in
                  
                  switch response.result {
